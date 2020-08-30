@@ -33,12 +33,12 @@ class MainContainer extends Component {
     }
   }
 
-  sortAlphabetically = (flag) => {
+  sortAlphabetically = () => {
     const sortByName = this.state.stocks.sort((a,b) => (a.name > b.name) ? 1 : -1)
     this.setState({ sortStock: sortByName})
   }
 
-  sortPrice = (flag) => {
+  sortPrice = () => {
     const sortByPrice = this.state.stocks.sort((a,b) => (a.price < b.price) ? 1 : -1)
     this.setState({ sortStock: sortByPrice})
   }
