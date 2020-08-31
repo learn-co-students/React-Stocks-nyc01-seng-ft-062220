@@ -9,7 +9,9 @@ class MainContainer extends Component {
 
   state = {
     stockArray : [],
-    portfolioArray : []
+    portfolioArray : [],
+    alphabetical: false,
+    priceSort: false
   }
 
   componentDidMount() {
@@ -18,53 +20,42 @@ class MainContainer extends Component {
       .then(stockData => this.setState({stockArray: stockData}))
   }
 
-  clickHandler = (stockObj, clickBoolean) => {
-    let newArray = [...this.state.portfolioArray]
-    let removalIndex
-    if(clickBoolean === true) {
-      removalIndex = this.state.portfolioArray.findIndex(item => item.id === stockObj.id)
-      newArray[removalIndex] = ""
-    } else if (clickBoolean === false) {
-        this.setState({...this.state, portfolioArray: [...this.state.portfolioArray, stockObj]})
-    }
-    
-    
+  addToPortfolio = (stockObj) => {
+    console.log(stockObj)
+    this.setState({...this.state, portfolioArray: [...this.state.portfolioArray, stockObj]})
     
   }
 
-  //explore this later - this is aa much better solve
-  // myPortfolioClickHandler = (obj) => {
-  //   if (this.state.myPortfolio.find(item => item.id === obj.id)) {
-  //     let removeArray = this.state.myPortfolio.filter(item => item.id !== obj.id)
-  //     this.setState({
-  //       myPortfolio: removeArray
-  //     })
+  deleteFromPortfolio = (stockObj) => {
+    let portArrayCopy = [...this.state.portfolioArray]
+    //let stockToDelete = newPortArray.findIndex(stockObject => stockObject.id === stockObj.id)
+    let newPortArray = portArrayCopy.filter(stockObject => stockObject.id !== stockObj.id)
+    this.setState({...this.state, portfolioArray: newPortArray})
+    //then reset state with new array
+  }
 
-  //   } else {
-  //     let newArray = [...this.state.myPortfolio, obj]
-  //     this.setState({
-  //       myPortfolio: newArray
-  //     })
-  //   }
-  // }
+  alphSortChangeHandler = (e) => {
+      console.log(e.target.value)
+  }
 
+  priceSortChangeHandler = (e) => {
+    console.log(e.target.value)
+}
 
   render() {
-    
-    //console.log("in maincontainer:", this.state.portfolioArray)
     return (
       <div>
-        <SearchBar/>
+        <SearchBar priceBoolean={this.state.priceSort} alphabeticalBoolean={this.state.alphabetical} sortChangeHandler={this.sortChangeHandler}/>
 
           <div className="row">
             <div className="col-8">
 
-              <StockContainer clickHandler={this.clickHandler}  stockArray={this.state.stockArray} />
+              <StockContainer clickHandler={this.addToPortfolio}  stockArray={this.state.stockArray} />
 
             </div>
             <div className="col-4">
 
-              <PortfolioContainer clickHandler={this.clickHandler} portfolioArray={this.state.portfolioArray}/>
+              <PortfolioContainer clickHandler={this.deleteFromPortfolio} portfolioArray={this.state.portfolioArray}/>
 
             </div>
           </div>
@@ -75,3 +66,5 @@ class MainContainer extends Component {
 }
 
 export default MainContainer;
+
+

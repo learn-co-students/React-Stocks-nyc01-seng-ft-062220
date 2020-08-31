@@ -8,7 +8,6 @@ class PortfolioContainer extends Component {
   }
 
   render() {
-    //console.log("in portfolio:", this.props.portfolioArray)
     return (
       <div>
         <h2>My Portfolio</h2>
