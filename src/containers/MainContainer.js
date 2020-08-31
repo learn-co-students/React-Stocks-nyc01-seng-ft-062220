@@ -30,12 +30,24 @@ class MainContainer extends Component {
     this.setState({portfolio: cancelMe})
   }
 
+  priceSort = (priceObj) => {
+    this.setState({
+      stocks: priceObj
+    })
+  }
+
+  nameSort = (nameObj) => {
+    this.setState({
+      stocks: nameObj
+    })
+  }
+
   
 
   render() {
     return (
       <div>
-        <SearchBar/>
+        <SearchBar stocks={this.state.stocks} priceSort={this.priceSort} nameSort={this.nameSort}/>
 
           <div className="row">
             <div className="col-8">
