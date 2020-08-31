@@ -7,7 +7,7 @@ class MainContainer extends Component {
 
   state = {
     stocks: [],
-    portfolio: []
+    portfolio: [],
   }
 
   componentDidMount(){
@@ -42,12 +42,33 @@ class MainContainer extends Component {
     })
   }
 
+  // filterStock = (event) => {
+  //   const billyJoel = [...this.state.stocks]
+  //   const closingTime = this.state.stocks.filter(stocks => stocks.type === event.target.value)
+  //   this.setState({
+
+  //     stocks: closingTime
+  //    })
+  // }
+
+  catFilter = (e) => {
+    let type = e.target.value
+    fetch('http://localhost:3000/stocks')
+    .then(res => res.json())
+    .then(res => {
+      
+      let sortyStocks = res.filter(stock => stock.type === type)
+      this.setState({stocks: sortyStocks})
+    })
+  }
+
   
 
   render() {
+    
     return (
       <div>
-        <SearchBar stocks={this.state.stocks} priceSort={this.priceSort} nameSort={this.nameSort}/>
+        <SearchBar stocks={this.state.stocks} priceSort={this.priceSort} nameSort={this.nameSort} catFilter={this.catFilter}/>
 
           <div className="row">
             <div className="col-8">
