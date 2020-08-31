@@ -6,7 +6,8 @@ import SearchBar from '../components/SearchBar'
 class MainContainer extends Component {
 
   state = {
-    stocks: []
+    stocks: [],
+    portfolio: []
   }
 
   componentDidMount(){
@@ -20,12 +21,19 @@ class MainContainer extends Component {
   }
 
   clickHandler = (event) => {
-    console.log(this.state.stocks)
+    let portfolioStock = this.state.stocks.find(stock => stock.id === parseInt(event.target.id))
+    console.log("FLAG INSIDE CLICK:", portfolioStock)
+    this.setState({portfolio: [...this.state.portfolio, portfolioStock]}) 
+  }
+
+  removedStock = (stockObj) => {
+    
   }
 
   
 
   render() {
+   //console.log(this.state.portfolio)
     return (
       <div>
         <SearchBar/>
@@ -38,7 +46,7 @@ class MainContainer extends Component {
             </div>
             <div className="col-4">
 
-              <PortfolioContainer/>
+              <PortfolioContainer portfolio={this.state.portfolio} removedStock={this.removedStock}/>
 
             </div>
           </div>
