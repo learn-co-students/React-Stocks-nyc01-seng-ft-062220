@@ -8,7 +8,8 @@ class MainContainer extends Component {
 
 
   state={
-    stocks:[]
+    stocks:[],
+    radioButton: ""
   }
 
   componentDidMount(){
@@ -18,24 +19,51 @@ class MainContainer extends Component {
   }
 
   renderStocks=()=>{
-    return this.state.stocks.map((stock)=><Stock key={stock.id} stock={stock}/>)
+    return this.state.stocks.map((stock)=><Stock key={stock.id} stock={stock} renderMyStocks={this.renderMyStocks}/>)
   }
 
+  renderMyStocks=(stock_obj)=>{
+
+    let newArray =[...this.state.stocks]
+    let newStock = this.state.stocks.find((stock)=> stock ===stock_obj)
+    newArray=[...newArray, newStock]
+    this.setState({stocks:newArray}, ()=> console.log(this.state))
+  }
+
+
+radioButton=(e)=>{
+
+  if (e.target.value === 'Price'){
+    this.setState({radioButton: e.target.value})
+    let updatedStock = this.state.stocks.sort((a, b)=>(a.price>b.price)? 1:-1)
+    updatedStock.reverse()
+
+    
+  }else {
+
+    this.setState({radioButton: e.target.value})
+    this.state.stocks.sort((a, b)=>(a.name>b.name)? 1:-1)
+    console.log(this.state.searchValue)
+  }
+}
+ 
   render() {
+
+    let myStocks =(stock_obj)=> this.state.stocks.filter((stock) => stock === stock_obj)
     return (
       <div>
-        <SearchBar/>
+        <SearchBar button={this.state.radioButton} radioButton={this.radioButton}/>
         <h3>Search bar</h3>
 
           <div className="row">
             <div className="col-8">
 
-              <StockContainer renderStocks={this.renderStocks}/>
+              <StockContainer renderStocks={this.renderStocks} renderMyStocks={this.renderMyStocks}/>
 
             </div>
             <div className="col-4">
 
-              <PortfolioContainer/>
+              <PortfolioContainer renderMyStocks={this.renderMyStocks} myStocks={myStocks}/>
               <h3>PortfolioCont</h3>
 
             </div>

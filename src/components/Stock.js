@@ -5,7 +5,7 @@ const Stock = (props) => (
 
     <div className="card">
       <div className="card-body">
-        <h5 className="card-title">{
+        <h5 onClick={()=>{props.renderMyStocks(props.stock)}} className="card-title">{
             props.stock.name
           }</h5>
         <p className="card-text">{
