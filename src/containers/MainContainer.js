@@ -22,18 +22,17 @@ class MainContainer extends Component {
 
   clickHandler = (event) => {
     let portfolioStock = this.state.stocks.find(stock => stock.id === parseInt(event.target.id))
-    console.log("FLAG INSIDE CLICK:", portfolioStock)
     this.setState({portfolio: [...this.state.portfolio, portfolioStock]}) 
   }
 
   removedStock = (stockObj) => {
-    
+    let cancelMe = this.state.portfolio.filter(stocks => stocks.id !== stockObj.id)
+    this.setState({portfolio: cancelMe})
   }
 
   
 
   render() {
-   //console.log(this.state.portfolio)
     return (
       <div>
         <SearchBar/>
