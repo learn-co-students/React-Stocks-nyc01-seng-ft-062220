@@ -17,7 +17,7 @@ const SearchBar = (props) => {
 
       <label>
         <strong>Filter:</strong>
-        <select onChange={null}>
+        <select onChange={props.handleFilter}>
           <option value="Tech">Tech</option>
           <option value="Sportswear">Sportswear</option>
           <option value="Finance">Finance</option>
