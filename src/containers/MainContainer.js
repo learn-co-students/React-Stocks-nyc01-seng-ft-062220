@@ -11,7 +11,8 @@ class MainContainer extends Component {
   state = {
     stocks: [],
     sortStock: [],
-    portfolio: []
+    portfolio: [],
+    alpha: true
   }
   //import API here
   componentDidMount(){
@@ -35,12 +36,12 @@ class MainContainer extends Component {
 
   sortAlphabetically = () => {
     const sortByName = this.state.stocks.sort((a,b) => (a.name > b.name) ? 1 : -1)
-    this.setState({ sortStock: sortByName})
+    this.setState({ sortStock: sortByName, alpha: true})
   }
 
   sortPrice = () => {
     const sortByPrice = this.state.stocks.sort((a,b) => (a.price < b.price) ? 1 : -1)
-    this.setState({ sortStock: sortByPrice})
+    this.setState({ sortStock: sortByPrice, alpha: false})
   }
 
   sortByCategory = e => {
@@ -51,7 +52,7 @@ class MainContainer extends Component {
   render() {
     return (
       <div>
-        <SearchBar sortAlphabetically={this.sortAlphabetically} sortPrice={this.sortPrice} sortByCategory={this.sortByCategory}/>
+        <SearchBar sortAlphabetically={this.sortAlphabetically} sortPrice={this.sortPrice} sortByCategory={this.sortByCategory} alpha={this.state.alpha}/>
 
           <div className="row">
             <div className="col-8">
