@@ -15,7 +15,7 @@ class MainContainer extends Component {
     let sortedStocks = this.state.stocks.sort(function(a, b){
       if(a.ticker < b.ticker) { return -1; }
       if(a.ticker > b.ticker) { return 1; }
-      return 0;
+      return 0
     })
 
     let toggle = !this.state.alph
@@ -46,10 +46,10 @@ class MainContainer extends Component {
   catFilter = (e) => {
     let type = e.target.value
     fetch('http://localhost:3000/stocks')
-    .then(res => res.json())
-    .then(res => {
+    .then(response => response.json())
+    .then(data => {
       
-      let sortyStocks = res.filter(stock => stock.type === type)
+      let sortyStocks = data.filter(stock => stock.type === type)
       this.setState({stocks: sortyStocks})
     })
 
