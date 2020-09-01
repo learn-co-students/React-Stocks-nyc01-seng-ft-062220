@@ -1,15 +1,20 @@
 import React from 'react'
 
-const Stock = () => (
+const Stock = (props) => {
+  
+  const clickHandler =() => {props.addPortfolio(props.stockObj)}
+  
+  
+  return (
   <div>
 
-    <div className="card">
+    <div className="card" onClick={clickHandler}>
       <div className="card-body">
         <h5 className="card-title">{
-            //Company Name
+           props.name
           }</h5>
         <p className="card-text">{
-            //ticker: stock price
+            props.price
           }</p>
       </div>
     </div>
@@ -17,5 +22,6 @@ const Stock = () => (
 
   </div>
 );
+}
 
 export default Stock
